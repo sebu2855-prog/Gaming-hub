@@ -1,14 +1,21 @@
-
-         <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Sebu YouTube Earnings</title>
+
   <style>
     body {
+      margin: 0;
+      font-family: Arial;
       background: #0f172a;
       color: white;
-      font-family: Arial;
-      margin: 0;
+    }
+
+    header {
+      background: red;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
     }
 
     .container {
@@ -50,21 +57,30 @@
     video {
       width: 100%;
       border-radius: 10px;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
+<header>💰 Sebu YouTube Earnings</header>
+
 <div class="container">
 
-  <h2>Welcome Sebu 😎</h2>
+  <div class="card">
+    <h2>Welcome Sebu 😎</h2>
+  </div>
 
   <div class="card">
     <h3>📹 Upload Video</h3>
+
     <input type="text" id="title" placeholder="Enter video title">
-    <input type="file" id="file">
     <br>
+
+    <input type="file" id="file" accept="video/*">
+    <br>
+
     <button onclick="uploadVideo()">Upload</button>
   </div>
 
@@ -81,43 +97,51 @@
 </div>
 
 <script>
-  let videos = [];
+let videos = [];
 
-  function uploadVideo() {
-    let title = document.getElementById("title").value;
-    let file = document.getElementById("file").files[0];
+function uploadVideo() {
+  let title = document.getElementById("title").value;
+  let fileInput = document.getElementById("file");
 
-    if (!title || !file) {
-      alert("Title aur video select karo!");
-      return;
-    }
-
-    let url = URL.createObjectURL(file);
-
-    videos.push({ title: title, url: url });
-
-    showVideos();
-
-    document.getElementById("title").value = "";
-    document.getElementById("file").value = "";
+  if (title === "") {
+    alert("Title likho!");
+    return;
   }
 
-  function showVideos() {
-    let list = document.getElementById("videoList");
-    list.innerHTML = "";
-
-    videos.forEach((video, index) => {
-      let li = document.createElement("li");
-      li.innerText = video.title;
-
-      li.onclick = () => {
-        document.getElementById("player").src = video.url;
-      };
-
-      list.appendChild(li);
-    });
+  if (fileInput.files.length === 0) {
+    alert("Video select karo!");
+    return;
   }
+
+  let file = fileInput.files[0];
+  let url = URL.createObjectURL(file);
+
+  videos.push({ title: title, url: url });
+
+  showVideos();
+
+  // reset fields
+  document.getElementById("title").value = "";
+  fileInput.value = "";
+}
+
+function showVideos() {
+  let list = document.getElementById("videoList");
+  list.innerHTML = "";
+
+  videos.forEach((video, index) => {
+    let li = document.createElement("li");
+    li.innerText = video.title;
+
+    li.onclick = function() {
+      document.getElementById("player").src = video.url;
+    };
+
+    list.appendChild(li);
+  });
+}
 </script>
 
 </body>
 </html>
+          
