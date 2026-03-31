@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebu YouTube Earnings</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        header {
+            background: red;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: red;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #334155;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>💰 Sebu YouTube Earnings</header>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div id="login">
+        <div class="card">
+            <h2>🔐 Login</h2>
+            <input type="text" id="username" placeholder="Enter your name">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="hidden">
+
+        <div class="card">
+            <h2 id="welcome"></h2>
+        </div>
+
+        <div class="card">
+            <h3>📹 Upload Video</h3>
+            <input type="text" id="videoTitle" placeholder="Enter video title">
+            <button onclick="upload()">Upload</button>
+        </div>
+
+        <div class="card">
+            <h3>🎥 Your Videos</h3>
+            <ul id="videoList"></ul>
+        </div>
+
+        <div class="card">
+            <h3>💸 Earnings</h3>
+            <p>Total Earn: ₹<span id="money">0</span></p>
+            <button onclick="earn()">Generate Earning</button>
+        </div>
+
+        <!-- AdSense Space -->
+        <div class="card">
+            <h3>📢 Advertisement</h3>
+            <p>Ads will appear here after approval</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    let money = 0;
+
+    function login() {
+        let name = document.getElementById("username").value;
+
+        if(name === "") {
+            alert("Enter your name!");
+            return;
+        }
+
+        localStorage.setItem("user", name);
+
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+
+        document.getElementById("welcome").innerText = "Welcome " + name + " 😎";
+    }
+
+    function upload() {
+        let title = document.getElementById("videoTitle").value;
+
+        if(title === "") {
+            alert("Enter video title!");
+            return;
+        }
+
+        let li = document.createElement("li");
+        li.innerText = title;
+
+        document.getElementById("videoList").appendChild(li);
+
+        document.getElementById("videoTitle").value = "";
+    }
+
+    function earn() {
+        let random = Math.floor(Math.random() * 100);
+        money += random;
+
+        document.getElementById("money").innerText = money;
+    }
+
+    // Auto Login
+    window.onload = function() {
+        let savedUser = localStorage.getItem("user");
+
+        if(savedUser) {
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+            document.getElementById("welcome").innerText = "Welcome " + savedUser + " 😎";
+        }
+    }
+</script>
+
+</body>
+</html>
