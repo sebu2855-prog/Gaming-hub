@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sebu YouTube Earnings</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
     <style>
         body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
             background: #0f172a;
             color: white;
+            font-family: Arial;
+            margin: 0;
         }
 
         header {
@@ -21,16 +16,15 @@
             padding: 15px;
             text-align: center;
             font-size: 20px;
-            font-weight: bold;
         }
 
         .container {
-            padding: 20px;
+            padding: 15px;
         }
 
         .card {
             background: #1e293b;
-            padding: 20px;
+            padding: 15px;
             margin: 15px 0;
             border-radius: 15px;
         }
@@ -38,9 +32,9 @@
         input {
             width: 90%;
             padding: 10px;
-            margin: 10px;
             border-radius: 10px;
             border: none;
+            margin: 10px 0;
         }
 
         button {
@@ -49,19 +43,14 @@
             border: none;
             color: white;
             border-radius: 10px;
-            cursor: pointer;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
         }
 
         li {
             background: #334155;
-            margin: 5px;
             padding: 10px;
+            margin: 5px 0;
             border-radius: 10px;
+            cursor: pointer;
         }
 
         .hidden {
@@ -101,24 +90,21 @@
         <div class="card">
             <h3>🎥 Your Videos</h3>
             <ul id="videoList"></ul>
-        </div><div class="card">
-    <h3>▶️ Watch Video</h3>
-    <iframe width="100%" height="200"
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-    frameborder="0" allowfullscreen>
-    </iframe>
+        </div>
+
+        <!-- VIDEO PLAYER -->
+        <div class="card">
+            <h3>▶️ Watch Video</h3>
+            <iframe id="player" width="100%" height="200"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            frameborder="0" allowfullscreen>
+            </iframe>
         </div>
 
         <div class="card">
             <h3>💸 Earnings</h3>
             <p>Total Earn: ₹<span id="money">0</span></p>
             <button onclick="earn()">Generate Earning</button>
-        </div>
-
-        <!-- AdSense Space -->
-        <div class="card">
-            <h3>📢 Advertisement</h3>
-            <p>Ads will appear here after approval</p>
         </div>
 
     </div>
@@ -144,6 +130,11 @@
         document.getElementById("welcome").innerText = "Welcome " + name + " 😎";
     }
 
+    function playVideo(videoId) {
+        let player = document.getElementById("player");
+        player.src = "https://www.youtube.com/embed/" + videoId;
+    }
+
     function upload() {
         let title = document.getElementById("videoTitle").value;
 
@@ -155,19 +146,22 @@
         let li = document.createElement("li");
         li.innerText = title;
 
-        document.getElementById("videoList").appendChild(li);
+        // click pe video change
+        li.onclick = function() {
+            playVideo("dQw4w9WgXcQ"); // yaha apna video ID daal sakte ho
+        };
 
+        document.getElementById("videoList").appendChild(li);
         document.getElementById("videoTitle").value = "";
     }
 
     function earn() {
         let random = Math.floor(Math.random() * 100);
         money += random;
-
         document.getElementById("money").innerText = money;
     }
 
-    // Auto Login
+    // Auto login
     window.onload = function() {
         let savedUser = localStorage.getItem("user");
 
